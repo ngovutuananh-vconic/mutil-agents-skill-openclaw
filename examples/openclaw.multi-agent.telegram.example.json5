@@ -1,0 +1,92 @@
+{
+  agents: {
+    list: [
+      {
+        id: "main",
+        default: true,
+        workspace: "~/.openclaw/workspace-main",
+        agentDir: "~/.openclaw/agents/main/agent",
+        model: { primary: "acc1/gpt-5.4", fallbacks: ["acc2/gpt-5.3-codex"] },
+      },
+      {
+        id: "coordinator",
+        workspace: "~/.openclaw/workspace-coordinator",
+        agentDir: "~/.openclaw/agents/coordinator/agent",
+        model: { primary: "vovantin/gpt-5.4", fallbacks: ["acc2/gpt-5.3-codex"] },
+      },
+      {
+        id: "planner",
+        workspace: "~/.openclaw/workspace-planner",
+        agentDir: "~/.openclaw/agents/planner/agent",
+        model: { primary: "claudible/claude-opus-4.6", fallbacks: ["chiasegpu/claude-opus-4.6"] },
+      },
+      {
+        id: "legal",
+        workspace: "~/.openclaw/workspace-legal",
+        agentDir: "~/.openclaw/agents/legal/agent",
+        model: { primary: "acc1/gpt-5.3-codex", fallbacks: ["acc2/gpt-5.3-codex", "vovantin/gpt-5.3-codex"] },
+      },
+      {
+        id: "ops",
+        workspace: "~/.openclaw/workspace-ops",
+        agentDir: "~/.openclaw/agents/ops/agent",
+        model: { primary: "github-copilot/gpt-5-mini", fallbacks: ["stepfun/step-3.5-flash"] },
+      },
+    ],
+  },
+
+  bindings: [
+    { agentId: "main", match: { channel: "telegram", accountId: "default" } },
+    { agentId: "coordinator", match: { channel: "telegram", accountId: "coordinator" } },
+    { agentId: "planner", match: { channel: "telegram", accountId: "planner" } },
+    { agentId: "legal", match: { channel: "telegram", accountId: "legal" } },
+    { agentId: "ops", match: { channel: "telegram", accountId: "ops" } },
+  ],
+
+  channels: {
+    telegram: {
+      enabled: true,
+      defaultAccount: "default",
+      dmPolicy: "open",
+      allowFrom: ["*"],
+      groupPolicy: "open",
+      groupAllowFrom: ["*"],
+      groups: {
+        "*": { requireMention: true, allowFrom: ["*"] },
+      },
+      accounts: {
+        default: {
+          botToken: "PASTE_DEFAULT_BOT_TOKEN",
+        },
+        coordinator: {
+          botToken: "PASTE_COORDINATOR_BOT_TOKEN",
+          dmPolicy: "open",
+          allowFrom: ["*"],
+          groupPolicy: "open",
+          groupAllowFrom: ["*"],
+        },
+        planner: {
+          botToken: "PASTE_PLANNER_BOT_TOKEN",
+          dmPolicy: "open",
+          allowFrom: ["*"],
+          groupPolicy: "open",
+          groupAllowFrom: ["*"],
+        },
+        legal: {
+          botToken: "PASTE_LEGAL_BOT_TOKEN",
+          dmPolicy: "open",
+          allowFrom: ["*"],
+          groupPolicy: "open",
+          groupAllowFrom: ["*"],
+        },
+        ops: {
+          botToken: "PASTE_OPS_BOT_TOKEN",
+          dmPolicy: "open",
+          allowFrom: ["*"],
+          groupPolicy: "open",
+          groupAllowFrom: ["*"],
+        },
+      },
+    },
+  },
+}
