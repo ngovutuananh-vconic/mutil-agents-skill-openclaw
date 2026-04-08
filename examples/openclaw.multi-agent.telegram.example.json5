@@ -1,0 +1,51 @@
+{
+  agents: {
+    list: [
+      {
+        id: "main",
+        default: true,
+        workspace: "~/.openclaw/workspace-agents/main",
+        agentDir: "~/.openclaw/agents/main/agent",
+        model: { primary: "acc1/gpt-5.4", fallbacks: ["acc2/gpt-5.3-codex"] },
+      },
+      {
+        id: "agent-a",
+        workspace: "~/.openclaw/workspace-agents/agent-a",
+        agentDir: "~/.openclaw/agents/agent-a/agent",
+        model: { primary: "sonnet46", fallbacks: ["acc1/gpt-5.4"] },
+      },
+      {
+        id: "agent-b",
+        workspace: "~/.openclaw/workspace-agents/agent-b",
+        agentDir: "~/.openclaw/agents/agent-b/agent",
+        model: { primary: "qwen-max", fallbacks: ["acc1/gpt-5.4"] },
+      },
+      {
+        id: "agent-c",
+        workspace: "~/.openclaw/workspace-agents/agent-c",
+        agentDir: "~/.openclaw/agents/agent-c/agent",
+        model: { primary: "acc1/gpt-5.4-codex", fallbacks: ["acc2/gpt-5.3-codex"] },
+      },
+    ],
+  },
+
+  bindings: [
+    { agentId: "main", match: { channel: "telegram", accountId: "default" } },
+    { agentId: "agent-a", match: { channel: "telegram", accountId: "agent-a" } },
+    { agentId: "agent-b", match: { channel: "telegram", accountId: "agent-b" } },
+    { agentId: "agent-c", match: { channel: "telegram", accountId: "agent-c" } },
+  ],
+
+  channels: {
+    telegram: {
+      enabled: true,
+      defaultAccount: "default",
+      accounts: {
+        default: { botToken: "PASTE_TELEGRAM_BOT_TOKEN_DEFAULT" },
+        "agent-a": { botToken: "PASTE_TELEGRAM_BOT_TOKEN_AGENT_A" },
+        "agent-b": { botToken: "PASTE_TELEGRAM_BOT_TOKEN_AGENT_B" },
+        "agent-c": { botToken: "PASTE_TELEGRAM_BOT_TOKEN_AGENT_C" },
+      },
+    },
+  },
+}
